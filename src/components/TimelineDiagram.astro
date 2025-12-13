@@ -1,0 +1,24 @@
+---
+import type { CareerCard } from "@/models/types";
+import { CareerCardPosition } from "@/models/enums";
+import TimelineComponent from "@/components/TimelineComponent.astro";
+
+interface Props {
+  cards: CareerCard[];
+}
+
+const { cards } = Astro.props;
+---
+
+<>
+  {
+    cards.map((card, i) => (
+      <TimelineComponent
+        card={card}
+        position={
+          i % 2 == 0 ? CareerCardPosition.Left : CareerCardPosition.Right
+        }
+      />
+    ))
+  }
+</>

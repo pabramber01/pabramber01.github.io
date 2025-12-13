@@ -1,0 +1,136 @@
+{
+  "header": {
+    "canvas": {
+      "openButton": "Menu"
+    },
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "career": "Career",
+      "work": "Work",
+      "contact": "Contact"
+    }
+  },
+  "home": {
+    "greeting": "Hi! I'm",
+    "tagline": "Delivering value as",
+    "roles": ["Software Engineer", "Data Scientist", "ML Engineer"]
+  },
+  "about": {
+    "title": "About me",
+    "subtitle": "Introduction",
+    "description": [
+      "I am a technology and software development enthusiast, passionate about transforming ideas into digital solutions that bring real value. My constant curiosity drives me to explore key areas of current and future technology, such as AI and data science.",
+      "I am motivated to learn and apply new tools and methodologies that enhance the creation of efficient and scalable projects. I enjoy tackling technical challenges and collaborating in multidisciplinary teams to achieve innovative solutions."
+    ]
+  },
+  "career": {
+    "title": "Career Path",
+    "subtitle": "My journey",
+    "cards": [
+      {
+        "title": "Data Scientist",
+        "company": "University of Seville",
+        "description": "I contribute to the development of an application whose objective is to improve state-of-the-art performance in histopathological images, in order to assist pathologists in their decision-making. To do this, I use PyTorch and HuggingFace to build on the state of the art and try to improve it. In addition, I use other libraries such as Scikit-learn, NumPy, Pandas, and Matplotlib, among others, as aids and to carry out critical analysis. Finally, I use Git together with GitHub for version control.",
+        "image": "us.jpg",
+        "periodStart": "01/2025",
+        "periodEnd": "Present"
+      },
+      {
+        "title": "MSc in Logic, Computing, and AI",
+        "company": "University of Seville",
+        "description": "Includes skills ranging from feature engineering and modeling to predictive analysis. I have worked on the use of CNNs adapted to time series, as well as the analysis of data structured in social network graphs and tabular Formula 1 data. In addition, I often use XAI to explain the behavior of the models. Graduated with honors in multiple subjects and a grade point average of 9.12.",
+        "image": "us.jpg",
+        "periodStart": "10/2023",
+        "periodEnd": "07/2024"
+      },
+      {
+        "title": "BSc in Software Engineering",
+        "company": "University of Seville",
+        "description": "Includes skills ranging from software development and testing to project management. I have worked on the design and creation of apps such as social networks and e-commerce, as well as eliciting requirements with real customers and maintaining legacy systems. Graduated with honors in multiple subjects and an average grade of 8.43.",
+        "image": "us.jpg",
+        "periodStart": "09/2019",
+        "periodEnd": "06/2023"
+      }
+    ]
+  },
+  "work": {
+    "title": "Projects",
+    "subtitle": "My work",
+    "description": {
+      "beginning": "Throughout my career, I have worked with various technologies that allow me to approach projects in a comprehensive manner. Among them are:",
+      "stack": [
+        {
+          "name": "Programming languages",
+          "tech": "Python, Java, JavaScript"
+        },
+        {
+          "name": "Web development",
+          "tech": "Django, Express, Spring, React, Astro, Tailwind"
+        },
+        {
+          "name": "Databases",
+          "tech": "SQL, JPQL, MongoDB"
+        },
+        {
+          "name": "Data processing and analysis",
+          "tech": "PyTorch, Scikit-learn, NumPy, Pandas, Matplotlib"
+        },
+        {
+          "name": "Testing and QA",
+          "tech": "Pytest, JUnit, Jest, Postman"
+        },
+        {
+          "name": "Tools and methodologies",
+          "tech": "Git, Scrum"
+        }
+      ],
+      "ending": "These skills have allowed me to develop solid and scalable projects, some of which I present below."
+    },
+    "cards": [
+      {
+        "image": "F1.png",
+        "fit": "contain",
+        "title": "F1 Prediction",
+        "description": "This work includes an F1 analysis and a predictive model.",
+        "link": "https://github.com/pabramber01/F1-Prediction"
+      },
+      {
+        "image": "histopathology.png",
+        "fit": "cover",
+        "title": "Histopathologic Cancer Detection",
+        "description": "Histopathologic cancer analysis and predictive model.",
+        "link": "https://github.com/pabramber01/histopathologic-cancer-detection"
+      },
+      {
+        "image": "portfolio.png",
+        "fit": "cover",
+        "title": "Portfolio",
+        "description": "My personal portfolio.",
+        "link": "https://github.com/pabramber01/pabramber01.github.io"
+      },
+      {
+        "image": "MeRN.png",
+        "fit": "cover",
+        "title": "MeRN",
+        "description": "Me Right Now, MeRN, is a simple social network applying the MERN stack.",
+        "link": "https://github.com/pabramber01/MeRN"
+      },
+      {
+        "image": "cervical.png",
+        "fit": "fill",
+        "title": "Cervical Cancer Risk Classification",
+        "description": "Cervical cancer risk analysis and predictive model over biopsy target.",
+        "link": "https://github.com/pabramber01/cervical-cancer-risk-classification"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch",
+    "description": "I currently reside in Seville, Spain, with the ability to communicate in Spanish (native) and English (C1 – CAE). You can discover more about my work through the following links or contact me directly by email."
+  },
+  "footer": {
+    "copyright": "All rights reserved."
+  }
+}

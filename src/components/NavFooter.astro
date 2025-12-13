@@ -1,0 +1,14 @@
+---
+interface Props {
+  copyright?: string;
+}
+
+const { copyright = "" } = Astro.props;
+---
+
+<footer
+  class="flex h-20 items-center justify-center px-5 text-center text-xs
+    text-gray-400 transition dark:text-gray-500"
+>
+  © {new Date().getFullYear()} pabramber01{copyright && ". " + copyright}
+</footer>

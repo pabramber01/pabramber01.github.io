@@ -1,0 +1,136 @@
+{
+  "header": {
+    "canvas": {
+      "openButton": "Menú"
+    },
+    "nav": {
+      "home": "Portada",
+      "about": "Sobre mí",
+      "career": "Trayectoria",
+      "work": "Trabajo",
+      "contact": "Contacto"
+    }
+  },
+  "home": {
+    "greeting": "¡Hola! Soy",
+    "tagline": "Proporcionando valor como",
+    "roles": ["Ingeniero de Software", "Científico del Dato", "Ingeniero de ML"]
+  },
+  "about": {
+    "title": "Sobre mí",
+    "subtitle": "Introducción",
+    "description": [
+      "Soy un entusiasta de la tecnología y el desarrollo de software, apasionado por transformar ideas en soluciones digitales que aporten valor real. Mi curiosidad constante me impulsa a explorar áreas clave del presente y futuro tecnológico, como la IA y la ciencia de datos.",
+      "Me motiva aprender y aplicar nuevas herramientas y metodologías que potencien la creación de proyectos eficientes y escalables. Disfruto enfrentando retos técnicos y colaborando en equipos multidisciplinarios para alcanzar soluciones innovadoras."
+    ]
+  },
+  "career": {
+    "title": "Trayectoria",
+    "subtitle": "Mi recorrido",
+    "cards": [
+      {
+        "title": "Científico del Dato",
+        "company": "Universidad de Sevilla",
+        "description": "Contribuyo al desarrollo de una aplicación cuyo objetivo es mejorar los rendimientos del estado del arte en cuanto a imágenes histopatológicas, para poder ayudar a la hora de tomar decisiones por parte del patólogo. Para ello, uso PyTorch y HuggingFace para poder partir de dicho estado del arte e intentar mejorarlo. Además, uso otras librerías como Scikit-learn, NumPy, Pandas y Matplotlib, entre otras, como auxiliares y para poder llevar a cabo un análisis crítico. Por último, indicar que para el control de versiones utilizo Git junto con GitHub.",
+        "image": "us.jpg",
+        "periodStart": "01/2025",
+        "periodEnd": "Presente"
+      },
+      {
+        "title": "Máster en Lógica, Computación e IA",
+        "company": "Universidad de Sevilla",
+        "description": "Incluye habilidades desde feature engineering y modelado hasta análisis predictivo. He trabajado en el uso de CNNs adaptadas a series temporales, así como el análisis de datos estructurados en grafos de una red social y datos tabulares de Fórmula 1. Además, para poder explicar el comportamiento de los modelos suelo emplear XAI. Finalizado con honores en múltiples asignaturas y una nota media de 9,12.",
+        "image": "us.jpg",
+        "periodStart": "10/2023",
+        "periodEnd": "07/2024"
+      },
+      {
+        "title": "Grado en Ingeniería del Software",
+        "company": "Universidad de Sevilla",
+        "description": "Incluye habilidades desde desarrollo y pruebas software hasta gestión de proyectos. He trabajado en el diseño y creación de apps como redes sociales y e-commerce, así como la elicitación de requisitos con clientes reales y mantener sistemas heredados. Finalizado con honores en múltiples asignaturas y una nota media de 8,43.",
+        "image": "us.jpg",
+        "periodStart": "09/2019",
+        "periodEnd": "06/2023"
+      }
+    ]
+  },
+  "work": {
+    "title": "Proyectos",
+    "subtitle": "Mi trabajo",
+    "description": {
+      "beginning": "Durante mi trayectoria he estado trabajando con diversas tecnologías que me permiten abordar proyectos de manera integral. Entre ellas destacan:",
+      "stack": [
+        {
+          "name": "Lenguajes de programación",
+          "tech": "Python, Java, JavaScript"
+        },
+        {
+          "name": "Desarrollo web",
+          "tech": "Django, Express, Spring, React, Astro, Tailwind"
+        },
+        {
+          "name": "Bases de datos",
+          "tech": "SQL, JPQL, MongoDB"
+        },
+        {
+          "name": "Procesamiento y análisis de datos",
+          "tech": "PyTorch, Scikit-learn, NumPy, Pandas, Matplotlib"
+        },
+        {
+          "name": "Pruebas y QA",
+          "tech": "Pytest, JUnit, Jest, Postman"
+        },
+        {
+          "name": "Herramientas y metodologías",
+          "tech": "Git, Scrum"
+        }
+      ],
+      "ending": "Estas competencias me han permitido desarrollar proyectos sólidos y escalables, algunos de los cuales presento a continuación."
+    },
+    "cards": [
+      {
+        "image": "F1.png",
+        "fit": "contain",
+        "title": "F1 Prediction",
+        "description": "Este trabajo incluye un análisis F1 y un modelo predictivo.",
+        "link": "https://github.com/pabramber01/F1-Prediction"
+      },
+      {
+        "image": "histopathology.png",
+        "fit": "cover",
+        "title": "Histopathologic Cancer Detection",
+        "description": "Análisis histopatológico del cáncer y modelo predictivo.",
+        "link": "https://github.com/pabramber01/histopathologic-cancer-detection"
+      },
+      {
+        "image": "portfolio.png",
+        "fit": "cover",
+        "title": "Portfolio",
+        "description": "Mi portfolio personal.",
+        "link": "https://github.com/pabramber01/pabramber01.github.io"
+      },
+      {
+        "image": "MeRN.png",
+        "fit": "cover",
+        "title": "MeRN",
+        "description": "Me Right Now, MeRN, es una red social sencilla que aplica la pila MERN.",
+        "link": "https://github.com/pabramber01/MeRN"
+      },
+      {
+        "image": "cervical.png",
+        "fit": "fill",
+        "title": "Cervical Cancer Risk Classification",
+        "description": "Análisis del riesgo de cáncer cervical y modelo predictivo sobre el objetivo biopsia.",
+        "link": "https://github.com/pabramber01/cervical-cancer-risk-classification"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "Conectemos",
+    "description": "Actualmente resido en Sevilla, España, con capacidad para comunicarme en español (nativo) e inglés (C1 - CAE). Puedes descubrir más sobre mi trabajo en los siguientes enlaces o escribirme directamente por correo."
+  },
+  "footer": {
+    "copyright": "Todos los derechos reservados."
+  }
+}

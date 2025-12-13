@@ -1,0 +1,114 @@
+---
+interface Props {
+  buttonClass?: string;
+}
+
+const { buttonClass = null } = Astro.props;
+---
+
+<theme-icon>
+  <button class={buttonClass}>
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="stroke-light-icon dark:hidden"
+    >
+      <path
+        d="M 8 12.25
+           A 4.25 4.25 0 0 1 12.25 8
+           v 0
+           a 4.25 4.25 0 0 1 4.25 4.25
+           v 0
+           a 4.25 4.25 0 0 1 -4.25 4.25
+           v 0
+           A 4.25 4.25 0 0 1 8 12.25
+           v 0
+           Z"
+      ></path>
+      <path
+        d="M 12.25 3
+           v 1.5
+           M 21.5 12.25
+           H 20 
+           M 18.791 18.791
+           l -1.06 -1.06
+           M 18.791 5.709
+           l -1.06 1.06
+           M 12.25 20
+           v 1.5
+           M 4.5 12.25
+           H 3
+           M 6.77 6.77 5.709 5.709
+           M 6.77 17.73
+           l -1.061 1.061"
+      ></path>
+    </svg>
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="stroke-dark-icon hidden dark:block"
+    >
+      <path
+        d="M 17.25 16.22
+           a 6.937 6.937 0 0 1 -9.47 -9.47 7.451 7.451 0 1 0 9.47 9.47
+           Z 
+           M 12.75 7
+           C 17 7 17 2.75 17 2.75
+           S 17 7 21.25 7
+           C 17 7 17 11.25 17 11.25
+           S 17 7 12.75 7
+           Z"
+      ></path>
+    </svg>
+  </button>
+</theme-icon>
+
+<script is:inline>
+  class ThemeIcon extends HTMLElement {
+    toggleButton;
+
+    constructor() {
+      super();
+      this.toggleButton = this.querySelector("button");
+    }
+
+    connectedCallback() {
+      this.applyTheme(this.getStoredTheme());
+      this.toggleButton.addEventListener("click", this.handleToggleClick);
+    }
+
+    disconnectedCallback() {
+      this.toggleButton.removeEventListener("click", this.handleToggleClick);
+    }
+
+    getStoredTheme = () => {
+      if (localStorage.getItem("theme")) {
+        return localStorage.getItem("theme");
+      }
+
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    };
+
+    applyTheme = (theme) => {
+      document.documentElement.classList.toggle("dark", theme === "dark");
+      localStorage.setItem("theme", theme);
+    };
+
+    handleToggleClick = () => {
+      const element = document.documentElement;
+
+      const newTheme = element.classList.contains("dark") ? "light" : "dark";
+      this.applyTheme(newTheme);
+    };
+  }
+
+  customElements.define("theme-icon", ThemeIcon);
+</script>

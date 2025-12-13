@@ -1,0 +1,257 @@
+---
+import { getStaticPaths, getLangFromUrl, useTranslations } from "@/i18n/utils";
+import { SocialMedia } from "@/models/enums";
+import Layout from "@/layouts/Layout.astro";
+import NavHeader from "@/components/NavHeader.astro";
+import TypeWriting from "@/components/TypeWriting.astro";
+import SocialIcon from "@/components/SocialIcon.astro";
+import Network from "@/components/Network.astro";
+import TransformIn from "@/components/TransformIn.astro";
+import DynamicImage from "@/components/DynamicImage.astro";
+import TimelineDiagram from "@/components/TimelineDiagram.astro";
+import GridDiagram from "@/components/GridDiagram.astro";
+import NavFooter from "@/components/NavFooter.astro";
+
+export { getStaticPaths };
+
+const lang = getLangFromUrl(Astro.url)!;
+const t = useTranslations(lang);
+
+const header = t("header");
+const home = t("home");
+const about = t("about");
+const career = t("career");
+const work = t("work");
+const contact = t("contact");
+const footer = t("footer");
+
+const toc = Object.entries(header.nav as Record<string, string>).map(
+  ([link, text]) => ({ link, text }),
+);
+---
+
+<Layout lang={lang} title="Pablo R. | Portfolio">
+  <NavHeader toc={toc} canvas={header.canvas.openButton} />
+
+  <main>
+    <section id="home" class="h-svh">
+      <div
+        class="bg-background-0 lg:from-background-0 lg:to-background-1000
+          dark:bg-background-1000 dark:lg:from-background-1000
+          dark:lg:to-background-0 lg:via-background-500 border-background-1000
+          dark:border-background-0 absolute left-0 h-[calc(100%+2px)] w-full
+          border-b-2 transition lg:bg-linear-to-r lg:from-45% lg:to-57%
+          dark:lg:from-43% dark:lg:to-55%"
+      >
+        <div class="container mx-auto">
+          <div class="flex pt-[25vh]">
+            <div class="z-10 flex flex-col items-center px-5">
+              <div
+                class="bg-primary-dark dark:bg-primary h-4 w-4 rounded-full
+                  transition"
+              >
+              </div>
+              <div class="from-background-500 h-50 w-0.5 bg-linear-to-b"></div>
+            </div>
+            <div class="z-10">
+              <h1 class="text-5xl font-black transition dark:text-white">
+                {home.greeting}
+                <span
+                  class="from-primary dark:from-primary-dark bg-linear-to-tr
+                    to-black to-120% bg-clip-text text-transparent transition
+                    dark:to-white"
+                >
+                  Pablo
+                </span>
+              </h1>
+              <p
+                class="text-primary-dark dark:text-primary mt-2 text-xl
+                  font-semibold transition"
+              >
+                {home.tagline}
+                <br />
+                <span>
+                  &#10094;
+                  <TypeWriting strings={home.roles} />
+                  /&#10095;
+                </span>
+              </p>
+              <div class="mt-4 flex gap-3">
+                <SocialIcon type={SocialMedia.Github} />
+                <SocialIcon type={SocialMedia.Kaggle} />
+                <SocialIcon type={SocialMedia.Linkedin} />
+              </div>
+            </div>
+          </div>
+          <div class="absolute top-0 right-0 left-0 h-full lg:ms-[50vw]">
+            <Network />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="about"
+      class="dark:border-background-0 border-b-background-1000 border-b
+        transition-colors lg:flex"
+    >
+      <div class="p-5 lg:grow">
+        <TransformIn>
+          <h2
+            class="text-primary-dark dark:text-primary text-xl font-semibold
+              transition"
+            aria-label={about.subtitle}
+          >
+            {about.subtitle}
+          </h2>
+        </TransformIn>
+        <h1 class="mb-1 text-5xl font-black transition dark:text-white">
+          {about.title}
+        </h1>
+        {
+          about.description.map((p: string) => (
+            <p class="mt-3 max-w-4xl transition dark:text-white">{p}</p>
+          ))
+        }
+      </div>
+      <div
+        class="dark:border-background-0 border-b-background-1000 border-t px-5
+          transition"
+      >
+        <div class="mx-auto grid max-w-96 grid-cols-3 grid-rows-3">
+          <div
+            class="dark:border-background-0 border-b-background-1000 col-span-2
+              border-x border-b transition"
+          >
+          </div>
+          <div
+            class="dark:border-background-0 border-b-background-1000 row-span-2
+              border-x border-b transition"
+          >
+          </div>
+          <div
+            class="dark:border-background-0 border-b-background-1000 row-span-2
+              border-x border-t transition"
+          >
+          </div>
+          <div
+            class="dark:border-background-0 border-b-background-1000
+              overflow-hidden border transition"
+          >
+            <DynamicImage
+              imageName="picture.jpg"
+              alt=""
+              class="aspect-square scale-125"
+            />
+          </div>
+          <div
+            class="dark:border-background-0 border-b-background-1000 col-span-2
+              col-start-2 row-start-3 border-x border-t transition"
+          >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="career"
+      class="dark:border-background-0 border-b-background-1000 border-b px-5
+        transition"
+    >
+      <div class="relative">
+        <div class="absolute py-5">
+          <TransformIn>
+            <h2
+              class="text-primary-dark dark:text-primary text-xl font-semibold
+                transition"
+              aria-label={career.subtitle}
+            >
+              {career.subtitle}
+            </h2>
+          </TransformIn>
+          <h1 class="text-5xl font-black transition dark:text-white">
+            {career.title}
+          </h1>
+        </div>
+        <div class="ml-auto w-16 lg:w-full">
+          <div
+            class="bg-background-1000 dark:bg-background-0 mx-auto h-30 w-0.5
+              transition"
+          >
+          </div>
+        </div>
+      </div>
+      <TimelineDiagram cards={career.cards} />
+    </section>
+
+    <section
+      id="work"
+      class="dark:border-background-0 border-b-background-1000 border-b pb-5
+        transition"
+    >
+      <div class="p-5">
+        <TransformIn>
+          <h2
+            class="text-primary-dark dark:text-primary text-xl font-semibold
+              transition"
+            aria-label={work.subtitle}
+          >
+            {work.subtitle}
+          </h2>
+        </TransformIn>
+        <h1 class="mb-1 text-5xl font-black transition dark:text-white">
+          {work.title}
+        </h1>
+        <p class="mt-3 max-w-4xl transition dark:text-white">
+          {work.description.beginning}
+        </p>
+        <ul class="mt-3 max-w-4xl list-disc pl-5 transition dark:text-white">
+          {
+            work.description.stack.map((s: { name: string; tech: string }) => (
+              <li>
+                <span class="font-semibold">{s.name}: </span>
+                {s.tech}
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-3 max-w-4xl transition dark:text-white">
+          {work.description.ending}
+        </p>
+      </div>
+      <GridDiagram cards={work.cards} />
+    </section>
+
+    <section
+      id="contact"
+      class="dark:border-background-0 border-b-background-1000 border-b pt-5
+        transition"
+    >
+      <div class="px-5">
+        <TransformIn>
+          <h2
+            class="text-primary-dark dark:text-primary text-xl font-semibold
+              transition"
+            aria-label={contact.subtitle}
+          >
+            {contact.subtitle}
+          </h2>
+        </TransformIn>
+        <h1 class="mb-1 text-5xl font-black transition dark:text-white">
+          {contact.title}
+        </h1>
+        <p class="mt-3 max-w-4xl transition dark:text-white">
+          {contact.description}
+        </p>
+      </div>
+      <div class="my-5 flex justify-center gap-2">
+        <SocialIcon type={SocialMedia.Github} />
+        <SocialIcon type={SocialMedia.Kaggle} />
+        <SocialIcon type={SocialMedia.Linkedin} />
+        <SocialIcon type={SocialMedia.Email} />
+      </div>
+    </section>
+  </main>
+
+  <NavFooter copyright={footer.copyright} />
+</Layout>

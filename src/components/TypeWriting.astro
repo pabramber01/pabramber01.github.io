@@ -1,0 +1,67 @@
+---
+interface Props {
+  strings: string[];
+  cursor?: string;
+  loop?: boolean;
+}
+
+const { strings, cursor = "|", loop = true } = Astro.props;
+---
+
+<type-writing
+  data-strings={JSON.stringify(strings)}
+  data-cursor={cursor}
+  data-loop={loop}
+>
+  <span id="placeholder">
+    {strings[0]}<span class="animate-blink ml-px">|</span>
+  </span>
+  <span id="main" class="hidden"></span>
+</type-writing>
+
+<script>
+  // @ts-nocheck
+  import Typewriter from "typewriter-effect/dist/core";
+
+  class TypeWriting extends HTMLElement {
+    connectedCallback() {
+      const defaultOptions = new Typewriter().options;
+
+      const strings = JSON.parse(this.dataset.strings!);
+      const cursor = this.dataset.cursor;
+      const loop = this.dataset.loop === "true";
+
+      const main = this.querySelector("#main")!;
+      const placeholder = this.querySelector("#placeholder")!;
+
+      new Typewriter(main, {
+        cursor,
+        delay: 0,
+      })
+        .typeString(strings[0])
+        .callFunction(() => {
+          placeholder.classList.add("hidden");
+          main.classList.remove("hidden");
+        })
+        .pauseFor(defaultOptions.pauseFor)
+        .deleteAll()
+        .callFunction(() => {
+          if (loop) {
+            strings.push(strings.shift());
+          } else {
+            strings.shift();
+          }
+
+          new Typewriter(main, {
+            strings,
+            cursor,
+            loop,
+            autoStart: true,
+          });
+        })
+        .start();
+    }
+  }
+
+  customElements.define("type-writing", TypeWriting);
+</script>

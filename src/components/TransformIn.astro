@@ -1,0 +1,89 @@
+---
+import { Transform } from "@/models/enums";
+
+export interface Props {
+  transform?: Transform;
+  activationPercentage?: number;
+}
+
+const { transform = Transform.FadeLeft, activationPercentage = 25 } =
+  Astro.props;
+
+let fixedClass = "";
+let temporalClass = "";
+
+const fadeFixedClass = "transition duration-700 ease-out";
+const fadeTemporalClass = "invisible opacity-0";
+
+const borderFixedClass =
+  "after:bg-primary-dark after:dark:bg-primary relative after:absolute after:bottom-0 after:left-1/2 after:h-1 after:w-full after:-translate-x-1/2 after:transition-all after:duration-700";
+
+switch (transform) {
+  case Transform.FadeUp:
+    fixedClass = fadeFixedClass;
+    temporalClass = fadeTemporalClass + " " + "translate-y-5";
+    break;
+  case Transform.FadeDown:
+    fixedClass = fadeFixedClass;
+    temporalClass = fadeTemporalClass + " " + "-translate-y-5";
+    break;
+  case Transform.FadeLeft:
+    fixedClass = fadeFixedClass;
+    temporalClass = fadeTemporalClass + " " + "translate-x-5";
+    break;
+  case Transform.FadeRight:
+    fixedClass = fadeFixedClass;
+    temporalClass = fadeTemporalClass + " " + "-translate-x-5";
+    break;
+  case Transform.BorderBottom:
+    fixedClass = borderFixedClass;
+    temporalClass = "after:!w-0";
+    break;
+}
+---
+
+<transform-in data-activation={activationPercentage} data-temp={temporalClass}>
+  <div class:list={[fixedClass, temporalClass]}>
+    <slot />
+  </div>
+</transform-in>
+
+<script>
+  class TransformIn extends HTMLElement {
+    private transformContainer: HTMLElement;
+    private observer: IntersectionObserver;
+
+    public constructor() {
+      super();
+      this.transformContainer = this.querySelector("div")!;
+      this.observer = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.dataset.temp!.split(" ").forEach((transform) => {
+                entry.target.classList.remove(transform);
+              });
+
+              observer.disconnect();
+            }
+          });
+        },
+        {
+          root: null,
+          rootMargin: `0px 0px -${this.dataset.activation}% 0px`,
+          threshold: 0,
+        },
+      );
+    }
+
+    public connectedCallback() {
+      this.observer.observe(this.transformContainer);
+    }
+
+    public disconnectedCallback() {
+      this.observer.disconnect();
+    }
+  }
+
+  customElements.define("transform-in", TransformIn);
+</script>

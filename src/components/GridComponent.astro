@@ -1,0 +1,214 @@
+---
+import type { WorkCard } from "@/models/types";
+import { WorkCardAspect } from "@/models/enums";
+import DynamicImage from "@/components/DynamicImage.astro";
+
+interface Props {
+  card: WorkCard;
+  aspect?: WorkCardAspect;
+}
+
+const { card, aspect = WorkCardAspect.Rectangle } = Astro.props;
+---
+
+<grid-component>
+  <div
+    class="border-background-1000 bg-background-0 dark:bg-background-1000
+      dark:border-background-0 my-2 cursor-pointer border-y-2 transition"
+  >
+    <div
+      tabindex="0"
+      class:list={[
+        `relative m-1 rotate-y-180 transition duration-700 perspective-distant
+        transform-3d`,
+        aspect,
+      ]}
+    >
+      <DynamicImage
+        imageName={card.image}
+        alt=""
+        class=`border-background-1000 dark:border-background-0 absolute
+          box-border h-full w-full border transition select-none
+          backface-hidden`
+        style=`object-fit: ${card.fit};`
+      />
+      <div
+        class="border-background-1000 dark:border-background-0 absolute flex
+          h-full w-full rotate-y-180 flex-col border p-3 transition
+          backface-hidden"
+      >
+        <div class="grow transition dark:text-white">
+          <h3 class="text-xl font-semibold">
+            {card.title}
+          </h3>
+          <p>
+            {card.description}
+          </p>
+        </div>
+        <a
+          class="border-primary bg-primary/30 hover:bg-primary/50
+            dark:border-primary-dark dark:bg-primary-dark/30
+            dark:hover:bg-primary-dark/50 flex w-fit gap-1 rounded-full border
+            px-2 py-0.5 align-middle transition dark:text-white"
+          href={card.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Visit ${card.title}`}
+          aria-hidden="false"
+        >
+          <svg
+            class="relative top-px right-px h-3.5 w-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M 10 5
+                 H 8.2 
+                 C 7.08 5 6.52 5 6.09 5.22
+                 C 5.72 5.41 5.41 5.72 5.22 6.09
+                 C 5 6.52 5 7.08 5 8.2
+                 V 15.8C5 16.92 5 17.48 5.22 17.91
+                 C 5.41 18.28 5.72 18.59 6.09 18.78
+                 C 6.52 19 7.08 19 8.2 19
+                 H 15.8
+                 C 16.92 19 17.48 19 17.91 18.78
+                 C 18.28 18.59 18.59 18.28 18.78 17.91
+                 C 19 17.48 19 16.92 19 15.8
+                 V 14
+                 M 20 9
+                 V 4
+                 M 20 4
+                 H 15
+                 M 20 4
+                 L 13 11"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+          <span class="text-xs">Link</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</grid-component>
+
+<script>
+  class GridComponent extends HTMLElement {
+    private rotatingDiv: HTMLElement;
+    private faces: HTMLElement[];
+    private anchor: HTMLAnchorElement;
+    private initialTimeoutId: number | null = null;
+    private timeoutId: number | null = null;
+    private isHovered = false;
+
+    public constructor() {
+      super();
+      this.rotatingDiv = this.querySelector("div>div")!;
+      this.faces = Array.from(this.querySelectorAll(":scope>div>div>*")!);
+      this.anchor = this.querySelector("a")!;
+    }
+
+    public connectedCallback() {
+      this.initialFlip();
+      this.scheduleFlip();
+      this.addEventListener("pointerenter", this.onMouseEnter);
+      this.addEventListener("pointerleave", this.onMouseLeave);
+      this.addEventListener("click", this.onClick);
+      this.addEventListener("keydown", this.onKeyDown);
+    }
+
+    public disconnectedCallback() {
+      this.clearInitial();
+      this.clearSchedule();
+      this.removeEventListener("pointerenter", this.onMouseEnter);
+      this.removeEventListener("pointerleave", this.onMouseLeave);
+      this.removeEventListener("click", this.onClick);
+      this.removeEventListener("keydown", this.onKeyDown);
+    }
+
+    private initialFlip = () => {
+      const rotate = Math.random() > 0.7;
+
+      if (rotate) {
+        const delay = Math.random() * 2000;
+        this.initialTimeoutId = window.setTimeout(() => {
+          const isFlipped = this.rotatingDiv.classList.toggle("rotate-y-180");
+          this.faces.forEach((face) => face.classList.toggle("select-none"));
+          this.anchor.tabIndex = isFlipped ? 0 : -1;
+          this.anchor.ariaHidden = isFlipped ? "false" : "true";
+        }, delay);
+      }
+    };
+
+    private clearInitial = () => {
+      if (this.initialTimeoutId !== null) {
+        clearTimeout(this.initialTimeoutId);
+        this.initialTimeoutId = null;
+      }
+    };
+
+    private scheduleFlip = () => {
+      if (this.isHovered) return;
+
+      const delay = 10000 + Math.random() * 10000;
+      this.timeoutId = window.setTimeout(() => {
+        const isFlipped = this.rotatingDiv.classList.toggle("rotate-y-180");
+        this.faces.forEach((face) => face.classList.toggle("select-none"));
+        this.anchor.tabIndex = isFlipped ? 0 : -1;
+        this.anchor.ariaHidden = isFlipped ? "false" : "true";
+        this.scheduleFlip();
+      }, delay);
+    };
+
+    private clearSchedule = () => {
+      if (this.timeoutId !== null) {
+        clearTimeout(this.timeoutId);
+        this.timeoutId = null;
+      }
+    };
+
+    private onMouseEnter = (event: PointerEvent) => {
+      if (event.pointerType === "mouse") {
+        this.isHovered = true;
+        this.clearSchedule();
+      }
+    };
+
+    private onMouseLeave = (event: PointerEvent) => {
+      if (event.pointerType === "mouse") {
+        this.isHovered = false;
+        this.scheduleFlip();
+      }
+    };
+
+    private onClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (target.closest("a")) return;
+
+      const isFlipped = this.rotatingDiv.classList.toggle("rotate-y-180");
+      this.faces.forEach((face) => face.classList.toggle("select-none"));
+      this.anchor.tabIndex = isFlipped ? 0 : -1;
+      this.anchor.ariaHidden = isFlipped ? "false" : "true";
+      this.clearSchedule();
+      this.scheduleFlip();
+    };
+
+    private onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Enter" || event.key === " ") {
+        const target = event.target as HTMLElement;
+        if (target.closest("a")) return;
+
+        event.preventDefault();
+        const isFlipped = this.rotatingDiv.classList.toggle("rotate-y-180");
+        this.faces.forEach((face) => face.classList.toggle("select-none"));
+        this.anchor.tabIndex = isFlipped ? 0 : -1;
+        this.anchor.ariaHidden = isFlipped ? "false" : "true";
+        this.clearSchedule();
+        this.scheduleFlip();
+      }
+    };
+  }
+
+  customElements.define("grid-component", GridComponent);
+</script>

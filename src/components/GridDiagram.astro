@@ -1,0 +1,81 @@
+---
+import type { WorkCard } from "@/models/types";
+import { WorkCardAspect } from "@/models/enums";
+import GridComponent from "@/components/GridComponent.astro";
+
+interface Props {
+  cards: WorkCard[];
+}
+
+const { cards } = Astro.props;
+
+const firstCol: WorkCard[] = [];
+const secondCol: WorkCard[] = [];
+const thirdCol: WorkCard[] = [];
+
+cards.forEach((card, i) => {
+  if (i % 3 === 0) {
+    secondCol.push(card);
+  } else if (i % 3 === 1) {
+    firstCol.push(card);
+  } else {
+    thirdCol.push(card);
+  }
+});
+---
+
+<div
+  class="border-background-1000 dark:border-background-0 border-y px-4
+    transition-colors md:px-10"
+>
+  <div
+    class="mx-auto grid gap-x-4 sm:grid-cols-2 lg:grid-cols-3 xl:max-w-4/5
+      2xl:max-w-3/4"
+  >
+    <div
+      class="border-background-1000 dark:border-background-0 flex flex-col
+        justify-center border-x-2 transition-colors"
+    >
+      {
+        firstCol.map((card, i) => (
+          <GridComponent
+            card={card}
+            aspect={
+              i % 2 === 0 ? WorkCardAspect.Rectangle : WorkCardAspect.Square
+            }
+          />
+        ))
+      }
+    </div>
+    <div
+      class="border-background-1000 dark:border-background-0 flex flex-col
+        justify-center border-x-2 transition-colors sm:row-span-2 lg:row-span-1"
+    >
+      {
+        secondCol.map((card, i) => (
+          <GridComponent
+            card={card}
+            aspect={
+              i % 3 !== 1 ? WorkCardAspect.Square : WorkCardAspect.Rectangle
+            }
+          />
+        ))
+      }
+    </div>
+    <div
+      class="border-background-1000 dark:border-background-0 flex flex-col
+        justify-center border-x-2 transition-colors"
+    >
+      {
+        thirdCol.map((card, i) => (
+          <GridComponent
+            card={card}
+            aspect={
+              i % 3 !== 1 ? WorkCardAspect.Rectangle : WorkCardAspect.Square
+            }
+          />
+        ))
+      }
+    </div>
+  </div>
+</div>

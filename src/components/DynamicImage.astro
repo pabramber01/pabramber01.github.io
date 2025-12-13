@@ -1,0 +1,27 @@
+---
+import type { ComponentProps } from "astro/types";
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+type ImageProps = ComponentProps<typeof Image>;
+
+interface Props extends Omit<ImageProps, "src"> {
+  imageName: string;
+}
+
+const { imageName, ...rest } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/*.{jpeg,jpg,png,gif}",
+);
+
+const imagePath = `/src/assets/${imageName}`;
+
+if (!images[imagePath]) {
+  throw new Error(
+    `"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`,
+  );
+}
+---
+
+<Image {...rest as ImageProps} src={images[imagePath]()} />

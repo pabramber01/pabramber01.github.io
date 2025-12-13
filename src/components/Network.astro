@@ -1,0 +1,108 @@
+---
+import type { ISourceOptions } from "tsparticles-engine";
+import Particles from "astro-particles";
+
+const options: ISourceOptions = {
+  interactivity: {
+    detect_on: "window",
+    events: {
+      onclick: {
+        enable: true,
+        mode: "repulse",
+      },
+      onhover: {
+        enable: true,
+        mode: "repulse",
+        parallax: { enable: false, force: 60, smooth: 10 },
+      },
+      resize: true,
+    },
+    modes: {
+      bubble: { distance: 400, duration: 2, opacity: 0.8, size: 40, speed: 3 },
+      grab: { distance: 400, line_linked: { opacity: 1 } },
+      push: { particles_nb: 4 },
+      remove: { particles_nb: 2 },
+      repulse: { distance: 200, duration: 0.4 },
+    },
+  },
+  particles: {
+    color: {
+      value: "#71717b",
+    },
+    line_linked: {
+      color: "#71717b",
+      distance: 150,
+      enable: true,
+      opacity: 0.4,
+      width: 1,
+    },
+    move: {
+      attract: { enable: false, rotateX: 600, rotateY: 1200 },
+      bounce: false,
+      direction: "none",
+      enable: true,
+      out_mode: "out",
+      random: false,
+      speed: 2,
+      straight: false,
+    },
+    number: {
+      density: { enable: true, area: 800 },
+      value: 80,
+    },
+    opacity: {
+      anim: { enable: false, opacity_min: 0.1, speed: 1, sync: false },
+      random: false,
+      value: 0.5,
+    },
+    shape: {
+      character: {
+        fill: false,
+        font: "Verdana",
+        style: "",
+        value: "*",
+        weight: "400",
+      },
+      image: {
+        height: 100,
+        replace_color: true,
+        src: "",
+        width: 100,
+      },
+      polygon: { nb_sides: 5 },
+      stroke: { color: "#71717b", width: 0 },
+      type: "circle",
+    },
+    size: {
+      anim: { enable: false, size_min: 0.1, speed: 40, sync: false },
+      random: true,
+      value: 5,
+    },
+  },
+  polygon: {
+    draw: { enable: false, lineColor: "#71717b", lineWidth: 0.5 },
+    move: { radius: 10 },
+    scale: 1,
+    type: "none",
+    url: "",
+  },
+  fullScreen: {
+    enable: false,
+  },
+  retina_detect: true,
+  fps_limit: 60,
+};
+---
+
+<script>
+  import { type Engine } from "tsparticles-engine";
+  import { loadFull } from "tsparticles";
+
+  window.particlesInit = async function (engine: Engine) {
+    await loadFull(engine);
+  };
+</script>
+
+<div id="tsparticles" class="h-full w-full">
+  <Particles id="tsparticles" options={options} init="particlesInit" />
+</div>

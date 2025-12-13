@@ -1,0 +1,136 @@
+---
+import { languages } from "@/i18n/ui";
+import { getLangFromUrl, getRouteFromUrl } from "@/i18n/utils";
+
+interface Props {
+  buttonClass?: string;
+}
+
+const { buttonClass = null } = Astro.props;
+
+const locale = getLangFromUrl(Astro.url);
+const route = getRouteFromUrl(Astro.url);
+---
+
+<locale-selector>
+  <button class={buttonClass}>
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="stroke-light-icon dark:stroke-dark-icon"
+    >
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M 2.5 9 L 21.5 9 M 2.5 15 L 21.5 15"></path>
+      <path
+        d="M 12 22 
+           C 14.6666667 19.5757576 16 16.2424242 16 12 
+           C 16 7.75757576 14.6666667 4.42424242 12 2 
+           C 9.33333333 4.42424242 8 7.75757576 8 12 
+           C 8 16.2424242 9.33333333 19.5757576 12 22 
+           Z"
+      ></path>
+    </svg>
+  </button>
+
+  <div
+    class="invisible absolute top-full left-0 w-full opacity-0 transition
+      duration-300"
+  >
+    <ul class="bg-header mt-2 rounded-t-3xl">
+      {
+        Object.entries(languages).map(([lang, label]) => {
+          const isActive = lang === locale;
+          const href = isActive ? undefined : `/${lang}/${route}`;
+          return (
+            <li
+              class:list={[
+                "text-navbar cursor-pointer",
+                isActive && "text-navbar-active",
+              ]}
+            >
+              {href ? (
+                <a
+                  class="inline-block w-full py-1"
+                  href={href}
+                  aria-label={label}
+                >
+                  {label}
+                </a>
+              ) : (
+                <span class="inline-block w-full py-1" tabindex="0">
+                  {label}
+                </span>
+              )}
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</locale-selector>
+
+<script>
+  export class LocaleSelector extends HTMLElement {
+    private button: HTMLButtonElement;
+    private container: HTMLElement;
+    public isShown: boolean = false;
+
+    public constructor() {
+      super();
+      this.button = this.querySelector("button")!;
+      this.container = this.querySelector("div")!;
+    }
+
+    public connectedCallback() {
+      this.button.addEventListener("click", this.toggle);
+    }
+
+    public disconnectedCallback() {
+      this.button.removeEventListener("click", this.toggle);
+      document.removeEventListener("click", this.onDocumentClick);
+      document.removeEventListener("keydown", this.onKeyDown);
+    }
+
+    private toggle = () => {
+      if (this.isShown) {
+        this.close();
+      } else {
+        this.open();
+      }
+    };
+
+    public open = () => {
+      this.container.classList.remove("invisible");
+      this.container.classList.remove("opacity-0");
+      this.isShown = true;
+      document.addEventListener("click", this.onDocumentClick);
+      document.addEventListener("keydown", this.onKeyDown);
+    };
+
+    public close = () => {
+      this.container.classList.add("opacity-0");
+      setTimeout(() => this.container.classList.add("invisible"), 300);
+      this.isShown = false;
+      document.removeEventListener("click", this.onDocumentClick);
+      document.removeEventListener("keydown", this.onKeyDown);
+    };
+
+    private onDocumentClick = (event: MouseEvent) => {
+      if (!this.contains(event.target as Node)) {
+        this.close();
+      }
+    };
+
+    private onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        this.close();
+        this.button.focus();
+      }
+    };
+  }
+
+  customElements.define("locale-selector", LocaleSelector);
+</script>

@@ -1,0 +1,11 @@
+<script>
+  import { getLangFromUrl } from "@/i18n/utils";
+
+  const lang = getLangFromUrl(new URL(document.URL));
+
+  if (lang) {
+    window.location.replace(`/${lang}/`);
+  } else {
+    window.location.replace("/");
+  }
+</script>

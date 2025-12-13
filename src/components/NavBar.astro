@@ -1,0 +1,147 @@
+---
+import type { TableOfContent } from "@/models/types";
+import { NavPosition } from "@/models/enums";
+
+interface Props {
+  toc: TableOfContent[];
+  position?: NavPosition;
+}
+
+const { toc, position = NavPosition.Vertical } = Astro.props;
+---
+
+<nav-bar data-position={position}>
+  <nav class="relative">
+    <ul class="lg:bg-header lg:flex">
+      {
+        toc.map((item) => (
+          <li>
+            <a
+              class="hover:bg-background-200 dark:hover:bg-background-700
+                text-navbar mb-1 flex p-4 transition-colors duration-350
+                ease-out lg:m-4 lg:inline lg:p-0 lg:hover:bg-inherit
+                lg:dark:hover:bg-inherit"
+              href={`#${item.link}`}
+            >
+              {item.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <span
+      class="from-primary/0 via-primary-dark/60 to-primary/0
+        dark:from-primary-dark/0 dark:via-primary/40 dark:to-primary-dark/0
+        absolute bottom-0 w-1 bg-linear-to-r transition-all duration-350
+        ease-in-out lg:h-1 lg:w-[initial]"
+    >
+    </span>
+  </nav>
+</nav-bar>
+
+<script>
+  import { NavPosition } from "@/models/enums";
+
+  class NavBar extends HTMLElement {
+    private nav: HTMLElement;
+    private links: HTMLAnchorElement[];
+    private underline: HTMLSpanElement;
+    private inCanvas: boolean = +this.dataset.position! == NavPosition.Vertical;
+    private currentLink: HTMLAnchorElement | null = null;
+    private observer: IntersectionObserver;
+    private isLgQuery: MediaQueryList;
+    private isLg: boolean;
+
+    public constructor() {
+      super();
+      this.nav = this.querySelector("nav")!;
+      this.links = Array.from(this.querySelectorAll("a"));
+      this.underline = this.querySelector("span")!;
+
+      this.observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const link = this.links.find(
+                (a) => a.hash == `#${entry.target.id}`,
+              )!;
+
+              if (link != this.currentLink) {
+                if (this.currentLink) {
+                  this.currentLink.classList.remove("text-navbar-active");
+                }
+
+                this.currentLink = link;
+
+                const linkRect = this.currentLink.getBoundingClientRect();
+                const navRect = this.nav.getBoundingClientRect();
+
+                if (this.inCanvas) {
+                  this.underline.style.height = `${linkRect.height}px`;
+                  this.underline.style.top = `${linkRect.top - navRect.top}px`;
+                } else {
+                  this.underline.style.width = `${linkRect.width}px`;
+                  this.underline.style.left = `${linkRect.left - navRect.left}px`;
+                }
+
+                this.currentLink.classList.add("text-navbar-active");
+              }
+            }
+          });
+        },
+        {
+          root: null,
+          rootMargin: "-1% 0px -99% 0px",
+          threshold: 0,
+        },
+      );
+
+      const lg = getComputedStyle(this).getPropertyValue("--breakpoint-lg");
+      this.isLgQuery = window.matchMedia(`(width >= ${lg})`);
+      this.isLg = this.isLgQuery.matches;
+    }
+
+    public connectedCallback() {
+      this.initObserver();
+      window.addEventListener("resize", this.handleResize);
+    }
+
+    public disconnectedCallback() {
+      this.observer.disconnect();
+      window.removeEventListener("resize", this.handleResize);
+    }
+
+    private initObserver = () => {
+      this.links.forEach((a) => {
+        const section = document.querySelector(a.hash)!;
+        this.observer.observe(section);
+      });
+    };
+
+    private handleResize = () => {
+      const isLgNow = this.isLgQuery.matches;
+      const hasChangedSize = this.isLg !== isLgNow;
+
+      if (hasChangedSize) {
+        this.underline.style.height = "";
+        this.underline.style.top = "";
+        this.underline.style.width = "";
+        this.underline.style.left = "";
+
+        this.isLg = isLgNow;
+
+        if (this.currentLink) {
+          this.currentLink.classList.remove("text-navbar-active");
+          this.currentLink = null;
+        }
+
+        this.observer.disconnect();
+        this.initObserver();
+      }
+    };
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    customElements.define("nav-bar", NavBar);
+  });
+</script>

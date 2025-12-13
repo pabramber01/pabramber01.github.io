@@ -1,0 +1,12 @@
+<script>
+  import { getPreferredLocale } from "@/i18n/utils";
+  import { defaultLang } from "@/i18n/ui";
+
+  const preferredLocale = getPreferredLocale(Array.from(navigator.languages));
+
+  if (preferredLocale) {
+    window.location.replace(`/${preferredLocale}/`);
+  } else {
+    window.location.replace(`/${defaultLang}/`);
+  }
+</script>

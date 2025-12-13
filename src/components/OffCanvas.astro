@@ -1,0 +1,156 @@
+---
+import NavFooter from "@/components/NavFooter.astro";
+import Separator from "@/components/Separator.astro";
+
+interface Props {
+  resize?: string;
+}
+
+const { resize = null } = Astro.props;
+---
+
+<off-canvas data-resize={resize} aria-hidden="true" inert>
+  <div
+    class="bg-background-0 shadow-background-800/5 dark:bg-background-800 fixed
+      top-0 left-0 z-50 h-full w-full max-w-87 -translate-x-full overflow-hidden
+      px-6 shadow-lg transition duration-300 focus:outline-none"
+    tabindex="-1"
+  >
+    <div class="flex h-20 grow flex-col items-end">
+      <button class="my-auto">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="stroke-light-icon dark:stroke-dark-icon"
+        >
+          <path d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <Separator />
+    </div>
+    <div
+      class="flex h-[calc(100%-5rem)] flex-col justify-between overflow-y-auto"
+    >
+      <div class="px-1 py-4">
+        <slot />
+      </div>
+
+      <div class="flex h-20 flex-col">
+        <Separator />
+        <NavFooter />
+      </div>
+    </div>
+  </div>
+  <div
+    class="bg-background-0/75 dark:bg-background-1000/75 pointer-events-none
+      fixed top-0 left-0 z-40 h-full w-full opacity-0 backdrop-blur-lg
+      transition duration-300"
+  >
+  </div>
+</off-canvas>
+
+<script>
+  export class OffCanvas extends HTMLElement {
+    private container: HTMLElement;
+    private closeButton: HTMLButtonElement;
+    private firstFocusable: HTMLElement;
+    private lastFocusable: HTMLElement;
+    private backdrop: HTMLElement;
+    private opener: HTMLElement | null = null;
+    private isSizeQuery: MediaQueryList | null = null;
+    public isShown: boolean = false;
+
+    public constructor() {
+      super();
+      this.container = this.querySelector(":scope>div:first-child")!;
+      this.closeButton = this.querySelector("button")!;
+      this.backdrop = this.querySelector(":scope>div:last-child")!;
+
+      const focusable = this.querySelectorAll<HTMLElement>(
+        'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      );
+      this.firstFocusable = focusable[0];
+      this.lastFocusable = focusable[focusable.length - 1];
+
+      if (this.dataset.resize) {
+        const sz = getComputedStyle(this).getPropertyValue(this.dataset.resize);
+        this.isSizeQuery = window.matchMedia(`(width >= ${sz})`);
+      }
+    }
+
+    public connectedCallback() {
+      this.container.addEventListener("keydown", this.onKeyDown);
+      this.closeButton.addEventListener("click", this.close);
+      this.backdrop.addEventListener("click", this.close);
+      if (this.isSizeQuery)
+        window.addEventListener("resize", this.closeIfResized);
+    }
+
+    public disconnectedCallback() {
+      this.container.removeEventListener("keydown", this.onKeyDown);
+      this.closeButton.removeEventListener("click", this.close);
+      this.backdrop.removeEventListener("click", this.close);
+      if (this.isSizeQuery)
+        window.removeEventListener("resize", this.closeIfResized);
+    }
+
+    private onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        this.close();
+      }
+
+      if (event.key === "Tab") {
+        const shift = event.shiftKey;
+        if (
+          shift &&
+          (document.activeElement === this.firstFocusable ||
+            document.activeElement === this.container)
+        ) {
+          event.preventDefault();
+          this.lastFocusable.focus();
+        } else if (
+          !shift &&
+          (document.activeElement === this.lastFocusable ||
+            document.activeElement === this.container)
+        ) {
+          event.preventDefault();
+          this.firstFocusable.focus();
+        }
+      }
+    };
+
+    public open = (opener: HTMLElement) => {
+      document.body.classList.add("overflow-hidden");
+      this.setAttribute("aria-hidden", "false");
+      this.removeAttribute("inert");
+      this.backdrop.classList.remove("opacity-0");
+      this.backdrop.classList.remove("pointer-events-none");
+      this.container.classList.remove("-translate-x-full");
+      this.container.focus();
+      this.opener = opener;
+      this.isShown = true;
+    };
+
+    public close = () => {
+      document.body.classList.remove("overflow-hidden");
+      this.setAttribute("aria-hidden", "true");
+      this.setAttribute("inert", "");
+      this.backdrop.classList.add("opacity-0");
+      this.backdrop.classList.add("pointer-events-none");
+      this.container.classList.add("-translate-x-full");
+      this.opener?.focus();
+      this.isShown = false;
+    };
+
+    private closeIfResized = () => {
+      if (this.isSizeQuery!.matches) this.close();
+    };
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    customElements.define("off-canvas", OffCanvas);
+  });
+</script>

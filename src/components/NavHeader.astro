@@ -1,0 +1,153 @@
+---
+import type { TableOfContent } from "@/models/types";
+import { NavPosition } from "@/models/enums";
+import OffCanvas from "@/components/OffCanvas.astro";
+import NavBar from "@/components/NavBar.astro";
+import LocaleSelector from "@/components/LocaleSelector.astro";
+import Separator from "@/components/Separator.astro";
+import ThemeIcon from "@/components/ThemeIcon.astro";
+
+interface Props {
+  toc: TableOfContent[];
+  canvas: string;
+}
+
+const { toc, canvas } = Astro.props;
+---
+
+<nav-header>
+  <header class="sticky top-0 z-30 h-0 w-full px-5">
+    <div class="relative flex transition duration-350">
+      <div class="lg:mx-auto">
+        <div class="lg:hidden">
+          <button class="bg-header absolute">
+            <span class="text-navbar m-[12.58px] cursor-pointer">{canvas}</span>
+          </button>
+        </div>
+        <div class="hidden lg:block">
+          <NavBar toc={toc} position={NavPosition.Horizontal} />
+        </div>
+      </div>
+      <div class="bg-header absolute right-0 flex">
+        <LocaleSelector buttonClass="flex mr-2" />
+        <Separator />
+        <ThemeIcon buttonClass="flex ml-2" />
+      </div>
+    </div>
+    <div class="lg:hidden">
+      <OffCanvas resize="--breakpoint-lg">
+        <NavBar toc={toc} />
+      </OffCanvas>
+    </div>
+  </header>
+</nav-header>
+
+<script>
+  import type { OffCanvas } from "@/components/OffCanvas.astro.0.mts";
+  import type { LocaleSelector } from "@/components/LocaleSelector.astro.0.mts";
+
+  class NavHeader extends HTMLElement {
+    private header: HTMLElement;
+    private headerItems: HTMLElement[];
+    private offCanvas: OffCanvas;
+    private offCanvasButton: HTMLButtonElement;
+    private offCanvasItems: HTMLAnchorElement[];
+    private navbarItems: HTMLAnchorElement[];
+    private localeSelector: LocaleSelector;
+    private isShown: boolean = true;
+    private isScrollingToAnchor: boolean = false;
+    private anchorScrollTimeout: number = 0;
+    private lastScrollTop: number = window.scrollY;
+
+    public constructor() {
+      super();
+      this.header = this.querySelector("header>div")!;
+      this.headerItems = Array.from(this.querySelectorAll("header>div>div"));
+      this.offCanvas = this.querySelector("off-canvas")!;
+      this.offCanvasButton = this.querySelector("button>span")!;
+      this.offCanvasItems = Array.from(this.querySelectorAll("off-canvas a"));
+      this.navbarItems = Array.from(this.querySelectorAll("nav-bar a"));
+      this.localeSelector = this.querySelector("locale-selector")!;
+    }
+
+    public connectedCallback() {
+      window.addEventListener("scroll", this.onScrollOnce);
+      window.addEventListener("scroll", this.onScroll);
+      this.headerItems.forEach((item) => {
+        item.addEventListener("click", this.onHeaderClick, true);
+      });
+      this.offCanvasButton.addEventListener("click", this.onButtonClick);
+      this.offCanvasItems.concat(this.navbarItems).forEach((item) => {
+        item.addEventListener("click", this.onAnchorClick);
+      });
+    }
+
+    public disconnectedCallback() {
+      window.removeEventListener("scroll", this.onScrollOnce);
+      window.removeEventListener("scroll", this.onScroll);
+      this.headerItems.forEach((item) => {
+        item.removeEventListener("click", this.onHeaderClick, true);
+      });
+      this.offCanvasButton.removeEventListener("click", this.onButtonClick);
+      this.offCanvasItems.concat(this.navbarItems).forEach((item) => {
+        item.removeEventListener("click", this.onAnchorClick);
+      });
+      this.headerItems.forEach((item) => {
+        item.removeEventListener("mouseenter", this.showHeader);
+      });
+    }
+
+    private onScrollOnce = () => {
+      window.removeEventListener("scroll", this.onScrollOnce);
+
+      this.headerItems.forEach((item) => {
+        item.addEventListener("mouseenter", this.showHeader);
+      });
+    };
+
+    private onScroll = () => {
+      const currentScrollTop = window.scrollY;
+      if (this.isScrollingToAnchor) {
+        clearTimeout(this.anchorScrollTimeout);
+        this.anchorScrollTimeout = window.setTimeout(() => {
+          this.isScrollingToAnchor = false;
+        }, 50);
+      } else if (!this.isShown && currentScrollTop - this.lastScrollTop < -2) {
+        this.showHeader();
+      } else if (this.isShown && currentScrollTop - this.lastScrollTop > 2) {
+        this.hideHeader();
+      }
+      this.lastScrollTop = currentScrollTop;
+    };
+
+    private onHeaderClick = () => {
+      if (!this.isShown) this.showHeader();
+    };
+
+    private onButtonClick = () => {
+      if (!this.offCanvas.isShown) this.offCanvas.open(this.offCanvasButton);
+    };
+
+    private onAnchorClick = () => {
+      if (this.offCanvas.isShown) this.offCanvas.close();
+      this.isScrollingToAnchor = true;
+    };
+
+    private showHeader = () => {
+      this.header.classList.remove("-translate-y-10");
+      this.isShown = true;
+    };
+
+    private hideHeader = () => {
+      if (this.offCanvas.isShown) return;
+      if (this.isScrollingToAnchor) return;
+      if (this.localeSelector.isShown) this.localeSelector.close();
+      this.header.classList.add("-translate-y-10");
+      this.isShown = false;
+    };
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    customElements.define("nav-header", NavHeader);
+  });
+</script>
