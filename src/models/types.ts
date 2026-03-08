@@ -6,7 +6,7 @@ export type TableOfContent = {
 export type CareerCard = {
   title: string;
   company: string;
-  description: string;
+  description: { name: string; text: string }[];
   image: string;
   periodStart: string;
   periodEnd?: string;

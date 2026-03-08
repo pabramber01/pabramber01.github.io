@@ -14,7 +14,7 @@
   "home": {
     "greeting": "¡Hola! Soy",
     "tagline": "Proporcionando valor como",
-    "roles": ["Ingeniero de Software", "Científico del Dato", "Ingeniero de ML"]
+    "roles": ["Ingeniero de Software", "Científico del Dato"]
   },
   "about": {
     "title": "Sobre mí",
@@ -31,7 +31,32 @@
       {
         "title": "Científico del Dato",
         "company": "Universidad de Sevilla",
-        "description": "Contribuyo al desarrollo de una aplicación cuyo objetivo es mejorar los rendimientos del estado del arte en cuanto a imágenes histopatológicas, para poder ayudar a la hora de tomar decisiones por parte del patólogo. Para ello, uso PyTorch y HuggingFace para poder partir de dicho estado del arte e intentar mejorarlo. Además, uso otras librerías como Scikit-learn, NumPy, Pandas y Matplotlib, entre otras, como auxiliares y para poder llevar a cabo un análisis crítico. Por último, indicar que para el control de versiones utilizo Git junto con GitHub.",
+        "description": [
+          {
+            "name": "Adquisición de datos",
+            "text": "Automatización de procesos para recopilar grandes volúmenes de imágenes médicas y metadatos asociados."
+          },
+          {
+            "name": "Preprocesado",
+            "text": "Limpieza y normalización de las imágenes para garantizar datasets consistentes y listos para ser usados."
+          },
+          {
+            "name": "Análisis exploratorio",
+            "text": "Estudio de distribuciones, correlaciones, sesgos y patrones mediante análisis estadístico y visualizaciones."
+          },
+          {
+            "name": "Modelado",
+            "text": "Entrenamiento, ajuste y ensamblado de modelos convolucionales basados en arquitecturas state-of-the-art."
+          },
+          {
+            "name": "Evaluación",
+            "text": "Análisis del rendimiento del modelo final mediante métricas cuantitativas, validación cruzada y visualizaciones avanzadas."
+          },
+          {
+            "name": "Pipelines",
+            "text": "Desarrollo de pipelines reproducibles para preprocesado, entrenamiento, evaluación y gestión de experimentos."
+          }
+        ],
         "image": "us.jpg",
         "periodStart": "01/2025",
         "periodEnd": "Presente"
@@ -39,7 +64,28 @@
       {
         "title": "Máster en Lógica, Computación e IA",
         "company": "Universidad de Sevilla",
-        "description": "Incluye habilidades desde feature engineering y modelado hasta análisis predictivo. He trabajado en el uso de CNNs adaptadas a series temporales, así como el análisis de datos estructurados en grafos de una red social y datos tabulares de Fórmula 1. Además, para poder explicar el comportamiento de los modelos suelo emplear XAI. Finalizado con honores en múltiples asignaturas y una nota media de 9,12.",
+        "description": [
+          {
+            "name": "GPA",
+            "text": "3.65 (9.12/10.0)"
+          },
+          {
+            "name": "Time series forecasting",
+            "text": "Modelado de datos tabulares temporales para tareas predictivas con ML clásico y DL."
+          },
+          {
+            "name": "Data enrichment",
+            "text": "Aplicación de técnicas de feature engineering, web scrapping y tratamiento de outliers."
+          },
+          {
+            "name": "Grafos",
+            "text": "Estudio y modelado de datos estructurados en grafos procedentes de una red social."
+          },
+          {
+            "name": "XAI",
+            "text": "Uso de técnicas de interpretabilidad para explicar el comportamiento de los modelos."
+          }
+        ],
         "image": "us.jpg",
         "periodStart": "10/2023",
         "periodEnd": "07/2024"
@@ -47,7 +93,28 @@
       {
         "title": "Grado en Ingeniería del Software",
         "company": "Universidad de Sevilla",
-        "description": "Incluye habilidades desde desarrollo y pruebas software hasta gestión de proyectos. He trabajado en el diseño y creación de apps como redes sociales y e-commerce, así como la elicitación de requisitos con clientes reales y mantener sistemas heredados. Finalizado con honores en múltiples asignaturas y una nota media de 8,43.",
+        "description": [
+          {
+            "name": "GPA",
+            "text": "3.37 (8.43/10.0)"
+          },
+          {
+            "name": "Desarrollo software",
+            "text": "Diseño, implementación y pruebas de proyectos, como e-commerce y redes sociales."
+          },
+          {
+            "name": "Gestión de proyectos",
+            "text": "Planificación, coordinación y seguimiento de tareas en equipos multidisciplinares."
+          },
+          {
+            "name": "Requisitos",
+            "text": "Elicitación y análisis de requisitos con clientes reales para definir funcionalidades y alcances."
+          },
+          {
+            "name": "Sistemas heredados",
+            "text": "Mantenimiento, refactorización y mejora de aplicaciones existentes en entornos productivos."
+          }
+        ],
         "image": "us.jpg",
         "periodStart": "09/2019",
         "periodEnd": "06/2023"
@@ -78,11 +145,11 @@
         },
         {
           "name": "Pruebas y QA",
-          "tech": "Pytest, JUnit, Jest, Postman"
+          "tech": "Pytest, JUnit, Jest, Postman, Swagger"
         },
         {
           "name": "Herramientas y metodologías",
-          "tech": "Git, Scrum"
+          "tech": "Bash, Git, Scrum, Kanban"
         }
       ],
       "ending": "Estas competencias me han permitido desarrollar proyectos sólidos y escalables, algunos de los cuales presento a continuación."
