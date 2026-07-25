@@ -14,7 +14,7 @@
   "home": {
     "greeting": "¡Hola! Soy",
     "tagline": "Proporcionando valor como",
-    "roles": ["Ingeniero de Software", "Científico del Dato"]
+    "roles": ["Software Engineer", "AI Engineer", "Data Scientist"]
   },
   "about": {
     "title": "Sobre mí",
@@ -29,32 +29,33 @@
     "subtitle": "Mi recorrido",
     "cards": [
       {
-        "title": "Científico del Dato",
+        "title": "AI Engineer",
+        "company": "EY",
+        "description": [
+          {
+            "name": "Análisis de documentos mediante IA",
+            "text": "Desarrollo de aplicación full-stack para el procesamiento de documentos, integrando capacidades basadas en OCR y LLMs para extraer información de documentos no estructurados."
+          }
+        ],
+        "image": "ey.jpg",
+        "periodStart": "05/2026",
+        "periodEnd": "Presente"
+      },
+      {
+        "title": "Data Scientist",
         "company": "Universidad de Sevilla",
         "description": [
           {
-            "name": "Adquisición de datos",
-            "text": "Automatización de procesos para recopilar grandes volúmenes de imágenes médicas y metadatos asociados."
+            "name": "Análisis del cáncer de mama",
+            "text": "Benchmarking de modelos de aprendizaje profundo y estudio de la relación entre características de imágenes médicas, expresión de proteínas y mutaciones genéticas para caracterizar el cáncer."
           },
           {
-            "name": "Preprocesado",
-            "text": "Limpieza y normalización de las imágenes para garantizar datasets consistentes y listos para ser usados."
+            "name": "Fusión de modelos fundacionales",
+            "text": "Desarrollo de enfoques basados en ensamblados combinando modelos fundacionales complementarios para mejorar el rendimiento en la clasificación de imágenes médicas."
           },
           {
-            "name": "Análisis exploratorio",
-            "text": "Estudio de distribuciones, correlaciones, sesgos y patrones mediante análisis estadístico y visualizaciones."
-          },
-          {
-            "name": "Modelado",
-            "text": "Entrenamiento, ajuste y ensamblado de modelos convolucionales basados en arquitecturas state-of-the-art."
-          },
-          {
-            "name": "Evaluación",
-            "text": "Análisis del rendimiento del modelo final mediante métricas cuantitativas, validación cruzada y visualizaciones avanzadas."
-          },
-          {
-            "name": "Pipelines",
-            "text": "Desarrollo de pipelines reproducibles para preprocesado, entrenamiento, evaluación y gestión de experimentos."
+            "name": "Generalización fuera del dominio",
+            "text": "Investigación de estrategias de fusión de modelos para mejorar la robustez y la generalización en el análisis de imágenes médicas bajo cambios en la distribución."
           }
         ],
         "image": "us.jpg",
@@ -71,19 +72,19 @@
           },
           {
             "name": "Time series forecasting",
-            "text": "Modelado de datos tabulares temporales para tareas predictivas con ML clásico y DL."
+            "text": "Desarrollo de modelos para datos temporales con aprendizaje automático y profundo."
           },
           {
-            "name": "Data enrichment",
-            "text": "Aplicación de técnicas de feature engineering, web scrapping y tratamiento de outliers."
+            "name": "Feature engineering",
+            "text": "Aplicación de técnicas de enriquecimiento de datos, web scraping y análisis de outliers."
           },
           {
-            "name": "Grafos",
-            "text": "Estudio y modelado de datos estructurados en grafos procedentes de una red social."
+            "name": "Análisis de grafos",
+            "text": "Modelado de grafos a partir de redes sociales para analizar patrones relacionales."
           },
           {
-            "name": "XAI",
-            "text": "Uso de técnicas de interpretabilidad para explicar el comportamiento de los modelos."
+            "name": "IA explicable",
+            "text": "Aplicación de técnicas de interpretabilidad para explicar las decisiones de los modelos."
           }
         ],
         "image": "us.jpg",
@@ -100,19 +101,19 @@
           },
           {
             "name": "Desarrollo software",
-            "text": "Diseño, implementación y pruebas de proyectos, como e-commerce y redes sociales."
+            "text": "Diseño y pruebas de aplicaciones de software siguiendo las mejores prácticas."
           },
           {
             "name": "Gestión de proyectos",
-            "text": "Planificación, coordinación y seguimiento de tareas en equipos multidisciplinares."
+            "text": "Planificación y coordinación de proyectos de software en equipos multidisciplinares."
           },
           {
-            "name": "Requisitos",
-            "text": "Elicitación y análisis de requisitos con clientes reales para definir funcionalidades y alcances."
+            "name": "Ingeniería de requisitos",
+            "text": "Elicitación y análisis de requisitos de clientes para definir el alcance del proyecto."
           },
           {
             "name": "Sistemas heredados",
-            "text": "Mantenimiento, refactorización y mejora de aplicaciones existentes en entornos productivos."
+            "text": "Mantenimiento y refactorización de aplicaciones existentes en producción."
           }
         ],
         "image": "us.jpg",
@@ -129,11 +130,11 @@
       "stack": [
         {
           "name": "Lenguajes de programación",
-          "tech": "Python, Java, JavaScript"
+          "tech": "Python, JavaScript, Java"
         },
         {
           "name": "Desarrollo web",
-          "tech": "Django, Express, Spring, React, Astro, Tailwind"
+          "tech": "FastAPI, Django, Express, Spring, React, Astro, Tailwind"
         },
         {
           "name": "Bases de datos",
@@ -145,7 +146,7 @@
         },
         {
           "name": "Pruebas y QA",
-          "tech": "Pytest, JUnit, Jest, Postman, Swagger"
+          "tech": "Pytest, Jest, JUnit, Postman, Swagger"
         },
         {
           "name": "Herramientas y metodologías",
@@ -156,46 +157,53 @@
     },
     "cards": [
       {
+        "image": "cervical.png",
+        "fit": "fill",
+        "title": "Cervical Cancer Risk Classification",
+        "description": "Análisis de riesgo de cáncer y modelado predictivo en datos tabulares.",
+        "link": "https://github.com/pabramber01/cervical-cancer-risk-classification"
+      },
+      {
+        "image": "cross-cohort.png",
+        "fit": "fill",
+        "title": "Investigación",
+        "description": "Domain generalisation challenges in breast cancer classification using foundation models.",
+        "link": "https://doi.org/10.1007/s11517-026-03590-4"
+      },
+      {
+        "image": "MeRN.png",
+        "fit": "cover",
+        "title": "MeRN",
+        "description": "Me Right Now (MeRN) es una red social desarrollada utilizando el stack MERN.",
+        "link": "https://github.com/pabramber01/MeRN"
+      },
+      {
         "image": "F1.png",
         "fit": "contain",
         "title": "F1 Prediction",
-        "description": "Este trabajo incluye un análisis F1 y un modelo predictivo.",
+        "description": "Análisis de datos de Fórmula 1 y desarrollo de modelos predictivos de series temporales para ranking.",
         "link": "https://github.com/pabramber01/F1-Prediction"
       },
       {
         "image": "histopathology.png",
         "fit": "cover",
         "title": "Histopathologic Cancer Detection",
-        "description": "Análisis histopatológico del cáncer y modelo predictivo.",
+        "description": "Clasificación de imágenes médicas mediante técnicas de aprendizaje profundo.",
         "link": "https://github.com/pabramber01/histopathologic-cancer-detection"
       },
       {
         "image": "portfolio.png",
-        "fit": "cover",
+        "fit": "none",
         "title": "Portfolio",
         "description": "Mi portfolio personal.",
         "link": "https://github.com/pabramber01/pabramber01.github.io"
-      },
-      {
-        "image": "MeRN.png",
-        "fit": "cover",
-        "title": "MeRN",
-        "description": "Me Right Now, MeRN, es una red social sencilla que aplica la pila MERN.",
-        "link": "https://github.com/pabramber01/MeRN"
-      },
-      {
-        "image": "cervical.png",
-        "fit": "fill",
-        "title": "Cervical Cancer Risk Classification",
-        "description": "Análisis del riesgo de cáncer cervical y modelo predictivo sobre el objetivo biopsia.",
-        "link": "https://github.com/pabramber01/cervical-cancer-risk-classification"
       }
     ]
   },
   "contact": {
     "title": "Contacto",
     "subtitle": "Conectemos",
-    "description": "Actualmente resido en Sevilla, España, con capacidad para comunicarme en español (nativo) e inglés (C1 - CAE). Puedes descubrir más sobre mi trabajo en los siguientes enlaces o escribirme directamente por correo."
+    "description": "Actualmente resido en Sevilla, España, con capacidad para comunicarme en español (nativo) e inglés (C1 Cambridge Advanced). Puedes descubrir más sobre mi trabajo en los siguientes enlaces o escribirme directamente por correo."
   },
   "footer": {
     "copyright": "Todos los derechos reservados."

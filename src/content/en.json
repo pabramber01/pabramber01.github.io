@@ -14,7 +14,7 @@
   "home": {
     "greeting": "Hi! I'm",
     "tagline": "Delivering value as",
-    "roles": ["Software Engineer", "Data Scientist"]
+    "roles": ["Software Engineer", "AI Engineer", "Data Scientist"]
   },
   "about": {
     "title": "About me",
@@ -29,32 +29,33 @@
     "subtitle": "My journey",
     "cards": [
       {
+        "title": "AI Engineer",
+        "company": "EY",
+        "description": [
+          {
+            "name": "AI-powered document analysis",
+            "text": "Development of a full-stack application for automated document processing, integrating OCR and LLM-based capabilities to extract and analyze information from unstructured documents."
+          }
+        ],
+        "image": "ey.jpg",
+        "periodStart": "05/2026",
+        "periodEnd": "Present"
+      },
+      {
         "title": "Data Scientist",
         "company": "University of Seville",
         "description": [
           {
-            "name": "Data acquisition",
-            "text": "Automation of processes to collect large volumes of medical images and associated metadata."
+            "name": "Breast cancer analysis",
+            "text": "Benchmarked deep learning models and studied the relationship between medical imaging features, protein expression and genetic mutations for breast cancer characterization."
           },
           {
-            "name": "Preprocessing",
-            "text": "Cleaning and normalization of images to ensure consistent and ready-to-use datasets."
+            "name": "Foundation model fusion",
+            "text": "Developed ensemble-based approaches combining complementary foundation models to improve medical image classification performance."
           },
           {
-            "name": "Exploratory analysis",
-            "text": "Study of distributions, correlations, biases and patterns through statistical analysis and visualizations."
-          },
-          {
-            "name": "Modeling",
-            "text": "Training, tuning and ensembling of convolutional models based on state-of-the-art architectures."
-          },
-          {
-            "name": "Evaluation",
-            "text": "Assessment of the final model’s performance using quantitative metrics, cross-validation and advanced visualizations."
-          },
-          {
-            "name": "Pipelines",
-            "text": "Development of reproducible pipelines for preprocessing, training, evaluation and experiment management."
+            "name": "Out-of-domain generalization",
+            "text": "Investigated model fusion strategies to improve robustness and generalization in medical image analysis under distribution shifts."
           }
         ],
         "image": "us.jpg",
@@ -71,19 +72,19 @@
           },
           {
             "name": "Time series forecasting",
-            "text": "Modeling of temporal tabular data for predictive tasks using classical ML and DL."
+            "text": "Developed models for temporal data using machine learning and deep learning."
           },
           {
-            "name": "Data enrichment",
-            "text": "Application of feature engineering techniques, web scraping and outlier treatment."
+            "name": "Feature engineering",
+            "text": "Applied data enrichment, web scraping and outlier analysis techniques."
           },
           {
-            "name": "Graphs",
-            "text": "Study and modeling of graph-structured data originating from a social network."
+            "name": "Graph analysis",
+            "text": "Modeled graph-structured data from social networks to analyze relational patterns."
           },
           {
-            "name": "XAI",
-            "text": "Use of interpretability techniques to explain model behavior."
+            "name": "Explainable AI",
+            "text": "Applied interpretability techniques to explain machine learning model decisions."
           }
         ],
         "image": "us.jpg",
@@ -100,19 +101,19 @@
           },
           {
             "name": "Software development",
-            "text": "Design, coding and testing of projects such as e-commerce and social networks."
+            "text": "Design and testing of software applications following engineering best practices."
           },
           {
             "name": "Project management",
-            "text": "Planning, coordination and tracking of tasks within multidisciplinary teams."
+            "text": "Planning and coordination of software projects within multidisciplinary teams."
           },
           {
-            "name": "Requirements",
-            "text": "Elicitation and analysis of requirements with real clients to define functionalities and scope."
+            "name": "Requirements engineering",
+            "text": "Elicitation and analysis of requirements from clients to define project scope."
           },
           {
             "name": "Legacy systems",
-            "text": "Maintenance, refactoring and improvement of existing applications in production environments."
+            "text": "Maintenance and refactoring of existing production applications."
           }
         ],
         "image": "us.jpg",
@@ -129,11 +130,11 @@
       "stack": [
         {
           "name": "Programming languages",
-          "tech": "Python, Java, JavaScript"
+          "tech": "Python, JavaScript, Java"
         },
         {
           "name": "Web development",
-          "tech": "Django, Express, Spring, React, Astro, Tailwind"
+          "tech": "FastAPI, Django, Express, Spring, React, Astro, Tailwind"
         },
         {
           "name": "Databases",
@@ -145,7 +146,7 @@
         },
         {
           "name": "Testing and QA",
-          "tech": "Pytest, JUnit, Jest, Postman, Swagger"
+          "tech": "Pytest, Jest, JUnit, Postman, Swagger"
         },
         {
           "name": "Tools and methodologies",
@@ -156,46 +157,53 @@
     },
     "cards": [
       {
+        "image": "cervical.png",
+        "fit": "fill",
+        "title": "Cervical Cancer Risk Classification",
+        "description": "Cancer risk analysis and predictive modeling based on tabular data.",
+        "link": "https://github.com/pabramber01/cervical-cancer-risk-classification"
+      },
+      {
+        "image": "cross-cohort.png",
+        "fit": "fill",
+        "title": "Research",
+        "description": "Domain generalisation challenges in breast cancer classification using foundation models.",
+        "link": "https://doi.org/10.1007/s11517-026-03590-4"
+      },
+      {
+        "image": "MeRN.png",
+        "fit": "cover",
+        "title": "MeRN",
+        "description": "Me Right Now (MeRN) is a social network developed using the MERN stack.",
+        "link": "https://github.com/pabramber01/MeRN"
+      },
+      {
         "image": "F1.png",
         "fit": "contain",
         "title": "F1 Prediction",
-        "description": "This work includes an F1 analysis and a predictive model.",
+        "description": "Analysis of Formula 1 data and development of a predictive time series model for ranking.",
         "link": "https://github.com/pabramber01/F1-Prediction"
       },
       {
         "image": "histopathology.png",
         "fit": "cover",
         "title": "Histopathologic Cancer Detection",
-        "description": "Histopathologic cancer analysis and predictive model.",
+        "description": "Medical image classification using deep learning techniques.",
         "link": "https://github.com/pabramber01/histopathologic-cancer-detection"
       },
       {
         "image": "portfolio.png",
-        "fit": "cover",
+        "fit": "none",
         "title": "Portfolio",
         "description": "My personal portfolio.",
         "link": "https://github.com/pabramber01/pabramber01.github.io"
-      },
-      {
-        "image": "MeRN.png",
-        "fit": "cover",
-        "title": "MeRN",
-        "description": "Me Right Now, MeRN, is a simple social network applying the MERN stack.",
-        "link": "https://github.com/pabramber01/MeRN"
-      },
-      {
-        "image": "cervical.png",
-        "fit": "fill",
-        "title": "Cervical Cancer Risk Classification",
-        "description": "Cervical cancer risk analysis and predictive model over biopsy target.",
-        "link": "https://github.com/pabramber01/cervical-cancer-risk-classification"
       }
     ]
   },
   "contact": {
     "title": "Contact",
     "subtitle": "Get in touch",
-    "description": "I currently reside in Seville, Spain, with the ability to communicate in Spanish (native) and English (C1 – CAE). You can discover more about my work through the following links or contact me directly by email."
+    "description": "I currently reside in Seville, Spain, with the ability to communicate in Spanish (native) and English (C1 Cambridge Advanced). You can discover more about my work through the following links or contact me directly by email."
   },
   "footer": {
     "copyright": "All rights reserved."
